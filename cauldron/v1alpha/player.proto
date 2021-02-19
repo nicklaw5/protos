@@ -5,13 +5,20 @@ package nicklaw5.cauldron.v1alpha;
 option go_package = "github.com/nicklaw5/protos/pb/cauldron/v1alpha;cauldron";
 
 import "google/protobuf/struct.proto";
-import "common/types/v1alpha/date.proto";
-import "core/v1alpha/data.proto";
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/descriptor.proto";
+
+extend google.protobuf.FieldOptions {
+  optional int32 default_character_limit = 5999;
+}
 
 message Player {
-  string id = 10;
-  string name = 20;
+  string id = 1;
+  string email = 2;
+  string usernname = 3;
+  string display_name = 4;
+  string hashed_password = 5;
+  int32 character_limit = 6 [(default_character_limit) = -1];
+  google.protobuf.Timestamp created_at = 40;
   google.protobuf.Struct custom_data = 30;
-  nicklaw5.common.types.v1alpha.Date created_on = 40;
-  nicklaw5.core.v1alpha.DataDocument data = 50;
 }

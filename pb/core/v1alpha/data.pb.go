@@ -26,6 +26,7 @@ const (
 // of the legacy proto package is being used.
 const _ = proto.ProtoPackageIsVersion4
 
+// Equivaluent to a RDMS' database
 type DataBucket struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -81,6 +82,7 @@ func (x *DataBucket) GetCollection() *DataCollection {
 	return nil
 }
 
+// Equivaluent to a RDMS' database table
 type DataCollection struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -136,6 +138,7 @@ func (x *DataCollection) GetDocuments() []*DataDocument {
 	return nil
 }
 
+// Equivaluent to a RDMS' database table row
 type DataDocument struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache

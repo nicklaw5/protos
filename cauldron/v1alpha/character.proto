@@ -15,7 +15,7 @@ message Character {
   // The character level
   int32 level = 20;
   // The player that owns the character
-  nicklaw5.cauldron.v1alpha.Player player = 30;
+  Player player = 30;
   // The date the character was created
   nicklaw5.common.types.v1alpha.Date created_on = 40;
 }

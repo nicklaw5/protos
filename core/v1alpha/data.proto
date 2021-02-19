@@ -6,16 +6,19 @@ option go_package = "github.com/nicklaw5/protos/pb/core/v1alpha;core";
 
 import "google/protobuf/struct.proto";
 
+// Equivaluent to a RDMS' database
 message DataBucket {
   string name = 1;
   DataCollection collection = 2;
 }
 
+// Equivaluent to a RDMS' database table
 message DataCollection {
   string name = 1;
   repeated DataDocument documents = 2;
 }
 
+// Equivaluent to a RDMS' database table row
 message DataDocument {
   string id = 1;
   google.protobuf.Struct data = 2;

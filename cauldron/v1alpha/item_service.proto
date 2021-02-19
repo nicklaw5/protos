@@ -1,0 +1,58 @@
+syntax = "proto3";
+
+package nicklaw5.cauldron.v1alpha;
+
+option go_package = "github.com/nicklaw5/protos/pb/cauldron/v1alpha;cauldron";
+
+import "google/protobuf/struct.proto";
+import "cauldron/v1alpha/item.proto";
+
+service ItemService {
+  rpc GetItemByID (GetItemByIdRequest) returns (GetItemByIdResponse) {}
+  rpc NewItem (NewItemRequest) returns (NewItemResponse) {}
+  // rpc NewItemInstance (NewItemInstanceRequest) returns (NewItemInstanceResponse) {}
+  // rpc GetCharacterItems (GetCharacterItemsRequest) returns (GetCharacterItemsResponse) {}
+}
+
+message GetItemByIdRequest {
+  string item_id = 1;
+}
+
+message GetItemByIdResponse {
+  string trace_id = 1;
+  nicklaw5.cauldron.v1alpha.Item item = 2;
+}
+
+message NewItemRequest {
+  string catalogue_id = 1;
+  string name = 2;
+  google.protobuf.Struct attributes = 10;
+}
+
+// message NewItemResponse {
+//   string trace_id = 1;
+//   nicklaw5.cauldron.v1alpha.Item item = 2;
+// }
+
+message NewItemResponse {
+  string trace_id = 1;
+  Status status = 2; // 0 = error || 1 = success
+  int32 error_code = 3; // only if ok = 0
+  string error_message = 4; // only if ok = 0
+  nicklaw5.cauldron.v1alpha.Item data = 5;
+}
+
+enum Status {
+  OK = 0;
+  ERROR = 1;
+  UNAUTHENTICATED = 2;
+  UNAUTHORIZED = 3;
+}
+
+// message GetCharacterItemsRequest {
+//   string character_id = 1;
+// }
+
+// message GetCharacterItemsResponse {
+//   repeated nicklaw5.cauldron.v1alpha.Item items = 1;
+// }

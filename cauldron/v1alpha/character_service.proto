@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package nicklaw5.cauldron.v1alpha;
+
+option go_package = "github.com/nicklaw5/protos/pb/cauldron/v1alpha;cauldron";
+
+import "cauldron/v1alpha/character.proto";
+
+service CharacterService {
+  rpc GetCharacterByID (GetCharacterByIdRequest) returns (GetCharacterByIdReply) {}
+}
+
+message GetCharacterByIdRequest {
+  // The character's id
+  string character_id = 10;
+}
+
+message GetCharacterByIdReply {
+  string trace_id = 1;
+  nicklaw5.cauldron.v1alpha.Character character= 2;
+}

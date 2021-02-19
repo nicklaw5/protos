@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package nicklaw5.cauldron.v1alpha;
+
+option go_package = "github.com/nicklaw5/protos/pb/cauldron/v1alpha;cauldron";
+
+import "cauldron/v1alpha/player.proto";
+import "common/types/v1alpha/date.proto";
+
+message Character {
+  // The unique charcter id
+  string id = 1;
+  // The class name
+  string class_name = 10;
+  // The character level
+  int32 level = 20;
+  // The player that owns the character
+  nicklaw5.cauldron.v1alpha.Player player = 30;
+  // The date the character was created
+  nicklaw5.common.types.v1alpha.Date created_on = 40;
+}

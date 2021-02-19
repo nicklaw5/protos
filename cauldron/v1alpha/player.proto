@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package nicklaw5.cauldron.v1alpha;
+
+option go_package = "github.com/nicklaw5/protos/pb/cauldron/v1alpha;cauldron";
+
+import "google/protobuf/struct.proto";
+import "common/types/v1alpha/date.proto";
+import "core/v1alpha/data.proto";
+
+message Player {
+  string id = 10;
+  string name = 20;
+  google.protobuf.Struct custom_data = 30;
+  nicklaw5.common.types.v1alpha.Date created_on = 40;
+  nicklaw5.core.v1alpha.DataDocument data = 50;
+}

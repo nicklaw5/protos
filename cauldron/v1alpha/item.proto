@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package nicklaw5.cauldron.v1alpha;
+
+option go_package = "github.com/nicklaw5/protos/pb/cauldron/v1alpha;cauldron";
+
+import "google/protobuf/struct.proto";
+
+message Item {
+  string id = 1;
+  string name = 5;
+  string description = 10;
+  ItemState state = 20;
+  google.protobuf.Struct attributes = 40;
+}
+
+enum ItemState {
+  UNDAMAGED = 0;
+  DAMAGED = 1;
+  BROKEN = 2;
+}

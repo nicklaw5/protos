@@ -17,12 +17,16 @@ message Player {
     optional int32 default_character_limit = 5000;
   }
 
+  extend google.protobuf.FieldOptions {
+    optional string sugar = 5001;
+  }
+
   string id = 1;
   string email = 2;
   string usernname = 3;
   string display_name = 4;
   string hashed_password = 5;
-  int32 character_limit = 6 [(default_character_limit) = -1];
+  int32 character_limit = 6 [(default_character_limit) = -1, (sugar) = "salt" ];
   google.protobuf.Timestamp created_at = 40;
   google.protobuf.Struct custom_data = 30;
 }

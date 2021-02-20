@@ -8,17 +8,9 @@ import "google/protobuf/struct.proto";
 import "google/protobuf/timestamp.proto";
 import "google/protobuf/descriptor.proto";
 
-// extend google.protobuf.FieldOptions {
-//   optional int32 default_character_limit = 5999;
-// }
-
 message Player {
   extend google.protobuf.FieldOptions {
     optional int32 default_character_limit = 5000;
-  }
-
-  extend google.protobuf.FieldOptions {
-    optional string sugar = 5001;
   }
 
   string id = 1;
@@ -26,7 +18,9 @@ message Player {
   string usernname = 3;
   string display_name = 4;
   string hashed_password = 5;
-  int32 character_limit = 6 [(default_character_limit) = -1, (sugar) = "salt" ];
+  // The number of characters a single player can be assigned.
+  // A negative value represents unlimited characters.
+  int32 character_limit = 6 [(default_character_limit) = -1];
   google.protobuf.Timestamp created_at = 40;
   google.protobuf.Struct custom_data = 30;
 }

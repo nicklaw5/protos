@@ -4,23 +4,29 @@ package nicklaw5.cauldron.v1alpha;
 
 option go_package = "github.com/nicklaw5/protos/pb/cauldron/v1alpha;cauldron";
 
-import "google/protobuf/struct.proto";
 import "cauldron/v1alpha/player.proto";
+import "common/types/v1alpha/status.proto";
+import "google/protobuf/struct.proto";
+import "google/protobuf/timestamp.proto";
 
 service PlayerService {
   rpc NewPlayer (NewPlayerRequest) returns (NewPlayerResponse) {}
 }
 
 message NewPlayerRequest {
-  string id = 1;
-  // string email = 2;
-  // string usernname = 3;
-  // string display_name = 4;
-  // string first_name = 5;
-  // string last_name = 6;
-  map<string, google.protobuf.Struct> data = 10;
+  string email = 10;
+  string usernname = 20;
+  string display_name = 30;
+  string password_plaintext = 40;
+  string first_name = 50;
+  string last_name = 60;
+  map<string, google.protobuf.Struct> data = 70;
+  google.protobuf.Timestamp created_at = 80;
+  google.protobuf.Timestamp updated_at = 90;
 }
-
 message NewPlayerResponse {
-  Player player = 1;
+  nicklaw5.common.types.v1alpha.Status status = 1;
+  int32 error_code = 2;
+  string error_message = 3;
+  Player player = 10;
 }

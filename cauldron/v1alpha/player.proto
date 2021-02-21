@@ -4,23 +4,30 @@ package nicklaw5.cauldron.v1alpha;
 
 option go_package = "github.com/nicklaw5/protos/pb/cauldron/v1alpha;cauldron";
 
+import "google/protobuf/descriptor.proto";
 import "google/protobuf/struct.proto";
 import "google/protobuf/timestamp.proto";
-import "google/protobuf/descriptor.proto";
 
 message Player {
   extend google.protobuf.FieldOptions {
-    optional int32 default_character_limit = 5000;
+    optional int32 default_character_limit = 5020;
   }
 
   string id = 1;
-  string email = 2;
-  string usernname = 3;
-  string display_name = 4;
-  string hashed_password = 5;
-  // The number of characters a single player can be assigned.
+  string email = 10;
+  string usernname = 20;
+  string display_name = 30;
+  string password_hashed = 40;
+  string first_name = 50;
+  string last_name = 60;
+  // The number of characters a single player can own.
   // A negative value represents unlimited characters.
-  int32 character_limit = 6 [(default_character_limit) = -1];
-  google.protobuf.Timestamp created_at = 40;
-  google.protobuf.Struct custom_data = 30;
+  //
+  // Options:
+  //  - default_character_limit: The default limit of characters a player can own.
+  int32 character_limit = 70 [
+    (default_character_limit) = -1
+  ];
+  google.protobuf.Timestamp created_at = 80;
+  google.protobuf.Struct custom_data = 90;
 }

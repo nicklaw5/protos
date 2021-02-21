@@ -4,18 +4,59 @@ package nicklaw5.cauldron.v1alpha;
 
 option go_package = "github.com/nicklaw5/protos/pb/cauldron/v1alpha;cauldron";
 
-import "cauldron/v1alpha/player.proto";
-import "common/types/v1alpha/date.proto";
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/timestamp.proto";
 
 message Character {
-  // The unique charcter id
+  extend google.protobuf.FieldOptions {
+    optional int32 initial_charcter_level = 5000;
+  }
+  extend google.protobuf.FieldOptions {
+    optional int32 maximum_charcter_level = 5010;
+  }
+
+  // The unique character id.
   string id = 1;
-  // The class name
-  string class_name = 10;
-  // The character level
-  int32 level = 20;
-  // The player that owns the character
-  Player player = 30;
-  // The date the character was created
-  nicklaw5.common.types.v1alpha.Date created_on = 40;
+  // The charcter's name
+  string name = 2;
+  // The player that owns the character.
+  string player_id = 10;
+  // The character's class id.
+  CharacterRace race_id = 20;
+  // The character's class id.
+  CharacterClass class_id = 30;
+  // The character's current experience points.
+  int32 xp = 40;
+  // The character's level.
+  // Options:
+  //  - initial_charcter_level: This is the character's level assigned on creation.
+  //  - maximum_charcter_level: This is the character's maximum allowed level.
+  int32 level = 50 [
+    (initial_charcter_level) = 0,
+    (maximum_charcter_level) = 100
+  ];
+  google.protobuf.Timestamp created_at = 60;
+  google.protobuf.Timestamp updated_at = 70;
+}
+
+message CharacterRace {
+  // The unique character class id.
+  string id = 1;
+  // The class name (eg. Human, Dwarf, Orc, etc).
+  string name = 10;
+  // The class description.
+  string description = 20;
+  google.protobuf.Timestamp created_at = 30;
+  google.protobuf.Timestamp updated_at = 40;
+}
+
+message CharacterClass {
+  // The unique character class id.
+  string id = 1;
+  // The class name (eg. Warrior, Mage, Rogue, etc).
+  string name = 10;
+  // The class description.
+  string description = 20;
+  google.protobuf.Timestamp created_at = 30;
+  google.protobuf.Timestamp updated_at = 40;
 }

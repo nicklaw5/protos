@@ -8,11 +8,17 @@ import "google/protobuf/struct.proto";
 
 message Item {
   string id = 1;
-  string name = 5;
-  string description = 10;
-  ItemState state = 20;
-  google.protobuf.Struct attributes = 40;
+  string name = 10;
+  string description = 20;
+  ItemState state = 30;
+  map<string, google.protobuf.Struct> data = 40;
 }
+
+// CompositeItem
+// message CompositeItem {
+//   string id = 1;
+//   repeated Item items = 2;
+// }
 
 enum ItemState {
   UNDAMAGED = 0;

@@ -18,7 +18,13 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type CharacterServiceClient interface {
-	GetCharacterByID(ctx context.Context, in *GetCharacterByIdRequest, opts ...grpc.CallOption) (*GetCharacterByIdReply, error)
+	// Character
+	NewCharacter(ctx context.Context, in *NewCharacterRequest, opts ...grpc.CallOption) (*NewCharacterResponse, error)
+	GetCharacterById(ctx context.Context, in *GetCharacterByIdRequest, opts ...grpc.CallOption) (*GetCharacterByIdResponse, error)
+	// Character Race
+	NewCharacterRace(ctx context.Context, in *NewCharacterRaceRequest, opts ...grpc.CallOption) (*NewCharacterRaceResponse, error)
+	// Character Class
+	NewCharacterClass(ctx context.Context, in *NewCharacterClassRequest, opts ...grpc.CallOption) (*NewCharacterClassResponse, error)
 }
 
 type characterServiceClient struct {
@@ -29,9 +35,36 @@ func NewCharacterServiceClient(cc grpc.ClientConnInterface) CharacterServiceClie
 	return &characterServiceClient{cc}
 }
 
-func (c *characterServiceClient) GetCharacterByID(ctx context.Context, in *GetCharacterByIdRequest, opts ...grpc.CallOption) (*GetCharacterByIdReply, error) {
-	out := new(GetCharacterByIdReply)
-	err := c.cc.Invoke(ctx, "/nicklaw5.cauldron.v1alpha.CharacterService/GetCharacterByID", in, out, opts...)
+func (c *characterServiceClient) NewCharacter(ctx context.Context, in *NewCharacterRequest, opts ...grpc.CallOption) (*NewCharacterResponse, error) {
+	out := new(NewCharacterResponse)
+	err := c.cc.Invoke(ctx, "/nicklaw5.cauldron.v1alpha.CharacterService/NewCharacter", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *characterServiceClient) GetCharacterById(ctx context.Context, in *GetCharacterByIdRequest, opts ...grpc.CallOption) (*GetCharacterByIdResponse, error) {
+	out := new(GetCharacterByIdResponse)
+	err := c.cc.Invoke(ctx, "/nicklaw5.cauldron.v1alpha.CharacterService/GetCharacterById", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *characterServiceClient) NewCharacterRace(ctx context.Context, in *NewCharacterRaceRequest, opts ...grpc.CallOption) (*NewCharacterRaceResponse, error) {
+	out := new(NewCharacterRaceResponse)
+	err := c.cc.Invoke(ctx, "/nicklaw5.cauldron.v1alpha.CharacterService/NewCharacterRace", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *characterServiceClient) NewCharacterClass(ctx context.Context, in *NewCharacterClassRequest, opts ...grpc.CallOption) (*NewCharacterClassResponse, error) {
+	out := new(NewCharacterClassResponse)
+	err := c.cc.Invoke(ctx, "/nicklaw5.cauldron.v1alpha.CharacterService/NewCharacterClass", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -42,7 +75,13 @@ func (c *characterServiceClient) GetCharacterByID(ctx context.Context, in *GetCh
 // All implementations must embed UnimplementedCharacterServiceServer
 // for forward compatibility
 type CharacterServiceServer interface {
-	GetCharacterByID(context.Context, *GetCharacterByIdRequest) (*GetCharacterByIdReply, error)
+	// Character
+	NewCharacter(context.Context, *NewCharacterRequest) (*NewCharacterResponse, error)
+	GetCharacterById(context.Context, *GetCharacterByIdRequest) (*GetCharacterByIdResponse, error)
+	// Character Race
+	NewCharacterRace(context.Context, *NewCharacterRaceRequest) (*NewCharacterRaceResponse, error)
+	// Character Class
+	NewCharacterClass(context.Context, *NewCharacterClassRequest) (*NewCharacterClassResponse, error)
 	mustEmbedUnimplementedCharacterServiceServer()
 }
 
@@ -50,8 +89,17 @@ type CharacterServiceServer interface {
 type UnimplementedCharacterServiceServer struct {
 }
 
-func (UnimplementedCharacterServiceServer) GetCharacterByID(context.Context, *GetCharacterByIdRequest) (*GetCharacterByIdReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetCharacterByID not implemented")
+func (UnimplementedCharacterServiceServer) NewCharacter(context.Context, *NewCharacterRequest) (*NewCharacterResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method NewCharacter not implemented")
+}
+func (UnimplementedCharacterServiceServer) GetCharacterById(context.Context, *GetCharacterByIdRequest) (*GetCharacterByIdResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetCharacterById not implemented")
+}
+func (UnimplementedCharacterServiceServer) NewCharacterRace(context.Context, *NewCharacterRaceRequest) (*NewCharacterRaceResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method NewCharacterRace not implemented")
+}
+func (UnimplementedCharacterServiceServer) NewCharacterClass(context.Context, *NewCharacterClassRequest) (*NewCharacterClassResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method NewCharacterClass not implemented")
 }
 func (UnimplementedCharacterServiceServer) mustEmbedUnimplementedCharacterServiceServer() {}
 
@@ -66,20 +114,74 @@ func RegisterCharacterServiceServer(s grpc.ServiceRegistrar, srv CharacterServic
 	s.RegisterService(&CharacterService_ServiceDesc, srv)
 }
 
-func _CharacterService_GetCharacterByID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _CharacterService_NewCharacter_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(NewCharacterRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CharacterServiceServer).NewCharacter(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/nicklaw5.cauldron.v1alpha.CharacterService/NewCharacter",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CharacterServiceServer).NewCharacter(ctx, req.(*NewCharacterRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CharacterService_GetCharacterById_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetCharacterByIdRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(CharacterServiceServer).GetCharacterByID(ctx, in)
+		return srv.(CharacterServiceServer).GetCharacterById(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/nicklaw5.cauldron.v1alpha.CharacterService/GetCharacterByID",
+		FullMethod: "/nicklaw5.cauldron.v1alpha.CharacterService/GetCharacterById",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CharacterServiceServer).GetCharacterByID(ctx, req.(*GetCharacterByIdRequest))
+		return srv.(CharacterServiceServer).GetCharacterById(ctx, req.(*GetCharacterByIdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CharacterService_NewCharacterRace_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(NewCharacterRaceRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CharacterServiceServer).NewCharacterRace(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/nicklaw5.cauldron.v1alpha.CharacterService/NewCharacterRace",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CharacterServiceServer).NewCharacterRace(ctx, req.(*NewCharacterRaceRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CharacterService_NewCharacterClass_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(NewCharacterClassRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CharacterServiceServer).NewCharacterClass(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/nicklaw5.cauldron.v1alpha.CharacterService/NewCharacterClass",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CharacterServiceServer).NewCharacterClass(ctx, req.(*NewCharacterClassRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -92,8 +194,20 @@ var CharacterService_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*CharacterServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "GetCharacterByID",
-			Handler:    _CharacterService_GetCharacterByID_Handler,
+			MethodName: "NewCharacter",
+			Handler:    _CharacterService_NewCharacter_Handler,
+		},
+		{
+			MethodName: "GetCharacterById",
+			Handler:    _CharacterService_GetCharacterById_Handler,
+		},
+		{
+			MethodName: "NewCharacterRace",
+			Handler:    _CharacterService_NewCharacterRace_Handler,
+		},
+		{
+			MethodName: "NewCharacterClass",
+			Handler:    _CharacterService_NewCharacterClass_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

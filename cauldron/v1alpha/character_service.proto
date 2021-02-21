@@ -5,17 +5,72 @@ package nicklaw5.cauldron.v1alpha;
 option go_package = "github.com/nicklaw5/protos/pb/cauldron/v1alpha;cauldron";
 
 import "cauldron/v1alpha/character.proto";
+import "common/types/v1alpha/status.proto";
 
 service CharacterService {
-  rpc GetCharacterByID (GetCharacterByIdRequest) returns (GetCharacterByIdReply) {}
+  // Character
+  rpc NewCharacter (NewCharacterRequest) returns (NewCharacterResponse) {}
+  rpc GetCharacterById (GetCharacterByIdRequest) returns (GetCharacterByIdResponse) {}
+
+  // Character Race
+  rpc NewCharacterRace (NewCharacterRaceRequest) returns (NewCharacterRaceResponse) {}
+
+  // Character Class
+  rpc NewCharacterClass (NewCharacterClassRequest) returns (NewCharacterClassResponse) {}
+}
+
+//
+// Character
+//
+
+message NewCharacterRequest {
+  string player_id = 10;
+  string race_id = 20;
+  string class_id = 30;
+}
+message NewCharacterResponse {
+  nicklaw5.common.types.v1alpha.Status status = 1;
+  int32 error_code = 2;
+  string error_message = 3;
+  Character character = 10;
 }
 
 message GetCharacterByIdRequest {
-  // The character's id
   string character_id = 10;
 }
+message GetCharacterByIdResponse {
+  nicklaw5.common.types.v1alpha.Status status = 1;
+  int32 error_code = 2;
+  string error_message = 3;
+  Character character = 10;
+}
 
-message GetCharacterByIdReply {
-  string trace_id = 1;
-  nicklaw5.cauldron.v1alpha.Character character= 2;
+//
+// Character Race
+//
+
+message NewCharacterRaceRequest {
+  string name = 10;
+  string description = 20;
+}
+message NewCharacterRaceResponse {
+  nicklaw5.common.types.v1alpha.Status status = 1;
+  int32 error_code = 2;
+  string error_message = 3;
+  CharacterRace race = 10;
+}
+
+//
+// Character Class
+//
+
+message NewCharacterClassRequest {
+  string name = 10;
+  string description = 20;
+}
+message NewCharacterClassResponse {
+  nicklaw5.common.types.v1alpha.Status status = 1;
+  int32 error_code = 2;
+  string error_message = 3;
+  CharacterClass class = 10;
 }

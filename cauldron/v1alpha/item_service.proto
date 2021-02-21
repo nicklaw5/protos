@@ -4,55 +4,58 @@ package nicklaw5.cauldron.v1alpha;
 
 option go_package = "github.com/nicklaw5/protos/pb/cauldron/v1alpha;cauldron";
 
-import "google/protobuf/struct.proto";
 import "cauldron/v1alpha/item.proto";
+import "common/types/v1alpha/status.proto";
+import "google/protobuf/struct.proto";
 
 service ItemService {
-  rpc GetItemByID (GetItemByIdRequest) returns (GetItemByIdResponse) {}
   rpc NewItem (NewItemRequest) returns (NewItemResponse) {}
-  // rpc NewItemInstance (NewItemInstanceRequest) returns (NewItemInstanceResponse) {}
-  // rpc GetCharacterItems (GetCharacterItemsRequest) returns (GetCharacterItemsResponse) {}
-}
-
-message GetItemByIdRequest {
-  string item_id = 1;
-}
-
-message GetItemByIdResponse {
-  string trace_id = 1;
-  nicklaw5.cauldron.v1alpha.Item item = 2;
+  rpc NewItemInstance (NewItemInstanceRequest) returns (NewItemInstanceResponse) {}
+  rpc GetItemByID (GetItemByIdRequest) returns (GetItemByIdResponse) {}
+  rpc GetCharacterItems (GetCharacterItemsRequest) returns (GetCharacterItemsResponse) {}
 }
 
 message NewItemRequest {
-  string catalogue_id = 1;
-  string name = 2;
-  google.protobuf.Struct attributes = 10;
+  string name = 10;
+  string description = 20;
+  string catalogue_id = 30;
+  map<string, google.protobuf.Struct> data = 40;
 }
-
-// message NewItemResponse {
-//   string trace_id = 1;
-//   nicklaw5.cauldron.v1alpha.Item item = 2;
-// }
-
 message NewItemResponse {
-  string trace_id = 1;
-  Status status = 2; // 0 = error || 1 = success
-  int32 error_code = 3; // only if ok = 0
-  string error_message = 4; // only if ok = 0
-  nicklaw5.cauldron.v1alpha.Item data = 5;
+  nicklaw5.common.types.v1alpha.Status status = 1;
+  int32 error_code = 2;
+  string error_message = 3;
+  Item item = 10;
 }
 
-enum Status {
-  OK = 0;
-  ERROR = 1;
-  UNAUTHENTICATED = 2;
-  UNAUTHORIZED = 3;
+message GetItemByIdRequest {
+  string id = 10;
+}
+message GetItemByIdResponse {
+  nicklaw5.common.types.v1alpha.Status status = 1;
+  int32 error_code = 2;
+  string error_message = 3;
+  Item item = 10;
 }
 
-// message GetCharacterItemsRequest {
-//   string character_id = 1;
-// }
+message GetCharacterItemsRequest {
+  string character_id = 10;
+}
+message GetCharacterItemsResponse {
+  nicklaw5.common.types.v1alpha.Status status = 1;
+  int32 error_code = 2;
+  string error_message = 3;
+  repeated Item items = 10;
+}
 
-// message GetCharacterItemsResponse {
-//   repeated nicklaw5.cauldron.v1alpha.Item items = 1;
-// }
+message NewItemInstanceRequest {
+  // The id of the item to use as a template
+  // in which to create a ne witem instance.
+  string item_id = 10;
+}
+message NewItemInstanceResponse {
+  nicklaw5.common.types.v1alpha.Status status = 1;
+  int32 error_code = 2;
+  string error_message = 3;
+  Item item = 10;
+}

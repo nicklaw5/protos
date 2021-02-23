@@ -18,7 +18,7 @@ service ItemService {
 message NewItemRequest {
   string name = 10;
   string description = 20;
-  string catalogue_id = 30;
+  ItemState state  = 30;
   map<string, google.protobuf.Struct> data = 40;
 }
 message NewItemResponse {

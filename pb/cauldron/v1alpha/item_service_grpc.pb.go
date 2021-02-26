@@ -21,6 +21,7 @@ type ItemServiceClient interface {
 	NewItem(ctx context.Context, in *NewItemRequest, opts ...grpc.CallOption) (*NewItemResponse, error)
 	NewItemInstance(ctx context.Context, in *NewItemInstanceRequest, opts ...grpc.CallOption) (*NewItemInstanceResponse, error)
 	GetItemByID(ctx context.Context, in *GetItemByIdRequest, opts ...grpc.CallOption) (*GetItemByIdResponse, error)
+	GetItemsByName(ctx context.Context, in *GetItemsByNameRequest, opts ...grpc.CallOption) (*GetItemsByNameResponse, error)
 	GetCharacterItems(ctx context.Context, in *GetCharacterItemsRequest, opts ...grpc.CallOption) (*GetCharacterItemsResponse, error)
 }
 
@@ -59,6 +60,15 @@ func (c *itemServiceClient) GetItemByID(ctx context.Context, in *GetItemByIdRequ
 	return out, nil
 }
 
+func (c *itemServiceClient) GetItemsByName(ctx context.Context, in *GetItemsByNameRequest, opts ...grpc.CallOption) (*GetItemsByNameResponse, error) {
+	out := new(GetItemsByNameResponse)
+	err := c.cc.Invoke(ctx, "/nicklaw5.cauldron.v1alpha.ItemService/GetItemsByName", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *itemServiceClient) GetCharacterItems(ctx context.Context, in *GetCharacterItemsRequest, opts ...grpc.CallOption) (*GetCharacterItemsResponse, error) {
 	out := new(GetCharacterItemsResponse)
 	err := c.cc.Invoke(ctx, "/nicklaw5.cauldron.v1alpha.ItemService/GetCharacterItems", in, out, opts...)
@@ -75,6 +85,7 @@ type ItemServiceServer interface {
 	NewItem(context.Context, *NewItemRequest) (*NewItemResponse, error)
 	NewItemInstance(context.Context, *NewItemInstanceRequest) (*NewItemInstanceResponse, error)
 	GetItemByID(context.Context, *GetItemByIdRequest) (*GetItemByIdResponse, error)
+	GetItemsByName(context.Context, *GetItemsByNameRequest) (*GetItemsByNameResponse, error)
 	GetCharacterItems(context.Context, *GetCharacterItemsRequest) (*GetCharacterItemsResponse, error)
 	mustEmbedUnimplementedItemServiceServer()
 }
@@ -91,6 +102,9 @@ func (UnimplementedItemServiceServer) NewItemInstance(context.Context, *NewItemI
 }
 func (UnimplementedItemServiceServer) GetItemByID(context.Context, *GetItemByIdRequest) (*GetItemByIdResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetItemByID not implemented")
+}
+func (UnimplementedItemServiceServer) GetItemsByName(context.Context, *GetItemsByNameRequest) (*GetItemsByNameResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetItemsByName not implemented")
 }
 func (UnimplementedItemServiceServer) GetCharacterItems(context.Context, *GetCharacterItemsRequest) (*GetCharacterItemsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetCharacterItems not implemented")
@@ -162,6 +176,24 @@ func _ItemService_GetItemByID_Handler(srv interface{}, ctx context.Context, dec 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ItemService_GetItemsByName_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetItemsByNameRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ItemServiceServer).GetItemsByName(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/nicklaw5.cauldron.v1alpha.ItemService/GetItemsByName",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ItemServiceServer).GetItemsByName(ctx, req.(*GetItemsByNameRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _ItemService_GetCharacterItems_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetCharacterItemsRequest)
 	if err := dec(in); err != nil {
@@ -198,6 +230,10 @@ var ItemService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetItemByID",
 			Handler:    _ItemService_GetItemByID_Handler,
+		},
+		{
+			MethodName: "GetItemsByName",
+			Handler:    _ItemService_GetItemsByName_Handler,
 		},
 		{
 			MethodName: "GetCharacterItems",

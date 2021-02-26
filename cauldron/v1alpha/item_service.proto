@@ -12,6 +12,7 @@ service ItemService {
   rpc NewItem (NewItemRequest) returns (NewItemResponse) {}
   rpc NewItemInstance (NewItemInstanceRequest) returns (NewItemInstanceResponse) {}
   rpc GetItemByID (GetItemByIdRequest) returns (GetItemByIdResponse) {}
+  rpc GetItemsByName (GetItemsByNameRequest) returns (GetItemsByNameResponse) {}
   rpc GetCharacterItems (GetCharacterItemsRequest) returns (GetCharacterItemsResponse) {}
 }
 
@@ -28,26 +29,6 @@ message NewItemResponse {
   Item item = 10;
 }
 
-message GetItemByIdRequest {
-  string id = 10;
-}
-message GetItemByIdResponse {
-  nicklaw5.common.types.v1alpha.Status status = 1;
-  int32 error_code = 2;
-  string error_message = 3;
-  Item item = 10;
-}
-
-message GetCharacterItemsRequest {
-  string character_id = 10;
-}
-message GetCharacterItemsResponse {
-  nicklaw5.common.types.v1alpha.Status status = 1;
-  int32 error_code = 2;
-  string error_message = 3;
-  repeated Item items = 10;
-}
-
 message NewItemInstanceRequest {
   // The id of the item to use as a template
   // in which to create a ne witem instance.
@@ -58,4 +39,38 @@ message NewItemInstanceResponse {
   int32 error_code = 2;
   string error_message = 3;
   Item item = 10;
+}
+
+message GetItemByIdRequest {
+  string id = 10;
+}
+message GetItemByIdResponse {
+  nicklaw5.common.types.v1alpha.Status status = 1;
+  int32 error_code = 2;
+  string error_message = 3;
+  Item item = 10;
+}
+
+message GetItemsByNameRequest {
+  string name = 10;
+  int32 limit = 20;
+  int32 page = 30;
+}
+message GetItemsByNameResponse {
+  nicklaw5.common.types.v1alpha.Status status = 1;
+  int32 error_code = 2;
+  string error_message = 3;
+  repeated Item items = 10;
+}
+
+message GetCharacterItemsRequest {
+  string character_id = 10;
+  int32 limit = 20;
+  int32 page = 30;
+}
+message GetCharacterItemsResponse {
+  nicklaw5.common.types.v1alpha.Status status = 1;
+  int32 error_code = 2;
+  string error_message = 3;
+  repeated Item items = 10;
 }

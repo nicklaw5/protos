@@ -18,9 +18,9 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ItemServiceClient interface {
-	NewItem(ctx context.Context, in *NewItemRequest, opts ...grpc.CallOption) (*NewItemResponse, error)
-	NewItemInstance(ctx context.Context, in *NewItemInstanceRequest, opts ...grpc.CallOption) (*NewItemInstanceResponse, error)
-	GetItemByID(ctx context.Context, in *GetItemByIdRequest, opts ...grpc.CallOption) (*GetItemByIdResponse, error)
+	CreateItem(ctx context.Context, in *CreateItemRequest, opts ...grpc.CallOption) (*CreateItemResponse, error)
+	CreateItemInstance(ctx context.Context, in *CreateItemInstanceRequest, opts ...grpc.CallOption) (*CreateItemInstanceResponse, error)
+	GetItemByID(ctx context.Context, in *GetItemByIDRequest, opts ...grpc.CallOption) (*GetItemByIDResponse, error)
 	GetItemsByName(ctx context.Context, in *GetItemsByNameRequest, opts ...grpc.CallOption) (*GetItemsByNameResponse, error)
 	GetCharacterItems(ctx context.Context, in *GetCharacterItemsRequest, opts ...grpc.CallOption) (*GetCharacterItemsResponse, error)
 }
@@ -33,26 +33,26 @@ func NewItemServiceClient(cc grpc.ClientConnInterface) ItemServiceClient {
 	return &itemServiceClient{cc}
 }
 
-func (c *itemServiceClient) NewItem(ctx context.Context, in *NewItemRequest, opts ...grpc.CallOption) (*NewItemResponse, error) {
-	out := new(NewItemResponse)
-	err := c.cc.Invoke(ctx, "/nicklaw5.cauldron.v1alpha.ItemService/NewItem", in, out, opts...)
+func (c *itemServiceClient) CreateItem(ctx context.Context, in *CreateItemRequest, opts ...grpc.CallOption) (*CreateItemResponse, error) {
+	out := new(CreateItemResponse)
+	err := c.cc.Invoke(ctx, "/nicklaw5.cauldron.v1alpha.ItemService/CreateItem", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *itemServiceClient) NewItemInstance(ctx context.Context, in *NewItemInstanceRequest, opts ...grpc.CallOption) (*NewItemInstanceResponse, error) {
-	out := new(NewItemInstanceResponse)
-	err := c.cc.Invoke(ctx, "/nicklaw5.cauldron.v1alpha.ItemService/NewItemInstance", in, out, opts...)
+func (c *itemServiceClient) CreateItemInstance(ctx context.Context, in *CreateItemInstanceRequest, opts ...grpc.CallOption) (*CreateItemInstanceResponse, error) {
+	out := new(CreateItemInstanceResponse)
+	err := c.cc.Invoke(ctx, "/nicklaw5.cauldron.v1alpha.ItemService/CreateItemInstance", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *itemServiceClient) GetItemByID(ctx context.Context, in *GetItemByIdRequest, opts ...grpc.CallOption) (*GetItemByIdResponse, error) {
-	out := new(GetItemByIdResponse)
+func (c *itemServiceClient) GetItemByID(ctx context.Context, in *GetItemByIDRequest, opts ...grpc.CallOption) (*GetItemByIDResponse, error) {
+	out := new(GetItemByIDResponse)
 	err := c.cc.Invoke(ctx, "/nicklaw5.cauldron.v1alpha.ItemService/GetItemByID", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -82,9 +82,9 @@ func (c *itemServiceClient) GetCharacterItems(ctx context.Context, in *GetCharac
 // All implementations must embed UnimplementedItemServiceServer
 // for forward compatibility
 type ItemServiceServer interface {
-	NewItem(context.Context, *NewItemRequest) (*NewItemResponse, error)
-	NewItemInstance(context.Context, *NewItemInstanceRequest) (*NewItemInstanceResponse, error)
-	GetItemByID(context.Context, *GetItemByIdRequest) (*GetItemByIdResponse, error)
+	CreateItem(context.Context, *CreateItemRequest) (*CreateItemResponse, error)
+	CreateItemInstance(context.Context, *CreateItemInstanceRequest) (*CreateItemInstanceResponse, error)
+	GetItemByID(context.Context, *GetItemByIDRequest) (*GetItemByIDResponse, error)
 	GetItemsByName(context.Context, *GetItemsByNameRequest) (*GetItemsByNameResponse, error)
 	GetCharacterItems(context.Context, *GetCharacterItemsRequest) (*GetCharacterItemsResponse, error)
 	mustEmbedUnimplementedItemServiceServer()
@@ -94,13 +94,13 @@ type ItemServiceServer interface {
 type UnimplementedItemServiceServer struct {
 }
 
-func (UnimplementedItemServiceServer) NewItem(context.Context, *NewItemRequest) (*NewItemResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method NewItem not implemented")
+func (UnimplementedItemServiceServer) CreateItem(context.Context, *CreateItemRequest) (*CreateItemResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateItem not implemented")
 }
-func (UnimplementedItemServiceServer) NewItemInstance(context.Context, *NewItemInstanceRequest) (*NewItemInstanceResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method NewItemInstance not implemented")
+func (UnimplementedItemServiceServer) CreateItemInstance(context.Context, *CreateItemInstanceRequest) (*CreateItemInstanceResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateItemInstance not implemented")
 }
-func (UnimplementedItemServiceServer) GetItemByID(context.Context, *GetItemByIdRequest) (*GetItemByIdResponse, error) {
+func (UnimplementedItemServiceServer) GetItemByID(context.Context, *GetItemByIDRequest) (*GetItemByIDResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetItemByID not implemented")
 }
 func (UnimplementedItemServiceServer) GetItemsByName(context.Context, *GetItemsByNameRequest) (*GetItemsByNameResponse, error) {
@@ -122,44 +122,44 @@ func RegisterItemServiceServer(s grpc.ServiceRegistrar, srv ItemServiceServer) {
 	s.RegisterService(&ItemService_ServiceDesc, srv)
 }
 
-func _ItemService_NewItem_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(NewItemRequest)
+func _ItemService_CreateItem_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateItemRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ItemServiceServer).NewItem(ctx, in)
+		return srv.(ItemServiceServer).CreateItem(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/nicklaw5.cauldron.v1alpha.ItemService/NewItem",
+		FullMethod: "/nicklaw5.cauldron.v1alpha.ItemService/CreateItem",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ItemServiceServer).NewItem(ctx, req.(*NewItemRequest))
+		return srv.(ItemServiceServer).CreateItem(ctx, req.(*CreateItemRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _ItemService_NewItemInstance_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(NewItemInstanceRequest)
+func _ItemService_CreateItemInstance_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateItemInstanceRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ItemServiceServer).NewItemInstance(ctx, in)
+		return srv.(ItemServiceServer).CreateItemInstance(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/nicklaw5.cauldron.v1alpha.ItemService/NewItemInstance",
+		FullMethod: "/nicklaw5.cauldron.v1alpha.ItemService/CreateItemInstance",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ItemServiceServer).NewItemInstance(ctx, req.(*NewItemInstanceRequest))
+		return srv.(ItemServiceServer).CreateItemInstance(ctx, req.(*CreateItemInstanceRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _ItemService_GetItemByID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetItemByIdRequest)
+	in := new(GetItemByIDRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -171,7 +171,7 @@ func _ItemService_GetItemByID_Handler(srv interface{}, ctx context.Context, dec 
 		FullMethod: "/nicklaw5.cauldron.v1alpha.ItemService/GetItemByID",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ItemServiceServer).GetItemByID(ctx, req.(*GetItemByIdRequest))
+		return srv.(ItemServiceServer).GetItemByID(ctx, req.(*GetItemByIDRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -220,12 +220,12 @@ var ItemService_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*ItemServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "NewItem",
-			Handler:    _ItemService_NewItem_Handler,
+			MethodName: "CreateItem",
+			Handler:    _ItemService_CreateItem_Handler,
 		},
 		{
-			MethodName: "NewItemInstance",
-			Handler:    _ItemService_NewItemInstance_Handler,
+			MethodName: "CreateItemInstance",
+			Handler:    _ItemService_CreateItemInstance_Handler,
 		},
 		{
 			MethodName: "GetItemByID",

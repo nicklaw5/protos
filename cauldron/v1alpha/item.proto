@@ -14,11 +14,12 @@ message Item {
   map<string, google.protobuf.Struct> data = 40;
 }
 
-// CompositeItem
-// message CompositeItem {
-//   string id = 1;
-//   repeated Item items = 2;
-// }
+// For example, a bow and its associated arrows.
+message CompositeItem {
+  string id = 1;
+  string name = 10;
+  repeated Item items = 20;
+}
 
 enum ItemState {
   UNDAMAGED = 0;

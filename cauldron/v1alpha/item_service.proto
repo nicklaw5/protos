@@ -9,42 +9,42 @@ import "common/types/v1alpha/status.proto";
 import "google/protobuf/struct.proto";
 
 service ItemService {
-  rpc NewItem (NewItemRequest) returns (NewItemResponse) {}
-  rpc NewItemInstance (NewItemInstanceRequest) returns (NewItemInstanceResponse) {}
-  rpc GetItemByID (GetItemByIdRequest) returns (GetItemByIdResponse) {}
+  rpc CreateItem (CreateItemRequest) returns (CreateItemResponse) {}
+  rpc CreateItemInstance (CreateItemInstanceRequest) returns (CreateItemInstanceResponse) {}
+  rpc GetItemByID (GetItemByIDRequest) returns (GetItemByIDResponse) {}
   rpc GetItemsByName (GetItemsByNameRequest) returns (GetItemsByNameResponse) {}
   rpc GetCharacterItems (GetCharacterItemsRequest) returns (GetCharacterItemsResponse) {}
 }
 
-message NewItemRequest {
+message CreateItemRequest {
   string name = 10;
   string description = 20;
   ItemState state  = 30;
   map<string, google.protobuf.Struct> data = 40;
 }
-message NewItemResponse {
+message CreateItemResponse {
   nicklaw5.common.types.v1alpha.Status status = 1;
   int32 error_code = 2;
   string error_message = 3;
   Item item = 10;
 }
 
-message NewItemInstanceRequest {
+message CreateItemInstanceRequest {
   // The id of the item to use as a template
   // in which to create a ne witem instance.
   string item_id = 10;
 }
-message NewItemInstanceResponse {
+message CreateItemInstanceResponse {
   nicklaw5.common.types.v1alpha.Status status = 1;
   int32 error_code = 2;
   string error_message = 3;
   Item item = 10;
 }
 
-message GetItemByIdRequest {
+message GetItemByIDRequest {
   string id = 10;
 }
-message GetItemByIdResponse {
+message GetItemByIDResponse {
   nicklaw5.common.types.v1alpha.Status status = 1;
   int32 error_code = 2;
   string error_message = 3;

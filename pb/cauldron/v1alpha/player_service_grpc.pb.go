@@ -18,7 +18,7 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type PlayerServiceClient interface {
-	NewPlayer(ctx context.Context, in *NewPlayerRequest, opts ...grpc.CallOption) (*NewPlayerResponse, error)
+	CreatePlayer(ctx context.Context, in *CreatePlayerRequest, opts ...grpc.CallOption) (*CreatePlayerResponse, error)
 }
 
 type playerServiceClient struct {
@@ -29,9 +29,9 @@ func NewPlayerServiceClient(cc grpc.ClientConnInterface) PlayerServiceClient {
 	return &playerServiceClient{cc}
 }
 
-func (c *playerServiceClient) NewPlayer(ctx context.Context, in *NewPlayerRequest, opts ...grpc.CallOption) (*NewPlayerResponse, error) {
-	out := new(NewPlayerResponse)
-	err := c.cc.Invoke(ctx, "/nicklaw5.cauldron.v1alpha.PlayerService/NewPlayer", in, out, opts...)
+func (c *playerServiceClient) CreatePlayer(ctx context.Context, in *CreatePlayerRequest, opts ...grpc.CallOption) (*CreatePlayerResponse, error) {
+	out := new(CreatePlayerResponse)
+	err := c.cc.Invoke(ctx, "/nicklaw5.cauldron.v1alpha.PlayerService/CreatePlayer", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -42,7 +42,7 @@ func (c *playerServiceClient) NewPlayer(ctx context.Context, in *NewPlayerReques
 // All implementations must embed UnimplementedPlayerServiceServer
 // for forward compatibility
 type PlayerServiceServer interface {
-	NewPlayer(context.Context, *NewPlayerRequest) (*NewPlayerResponse, error)
+	CreatePlayer(context.Context, *CreatePlayerRequest) (*CreatePlayerResponse, error)
 	mustEmbedUnimplementedPlayerServiceServer()
 }
 
@@ -50,8 +50,8 @@ type PlayerServiceServer interface {
 type UnimplementedPlayerServiceServer struct {
 }
 
-func (UnimplementedPlayerServiceServer) NewPlayer(context.Context, *NewPlayerRequest) (*NewPlayerResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method NewPlayer not implemented")
+func (UnimplementedPlayerServiceServer) CreatePlayer(context.Context, *CreatePlayerRequest) (*CreatePlayerResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreatePlayer not implemented")
 }
 func (UnimplementedPlayerServiceServer) mustEmbedUnimplementedPlayerServiceServer() {}
 
@@ -66,20 +66,20 @@ func RegisterPlayerServiceServer(s grpc.ServiceRegistrar, srv PlayerServiceServe
 	s.RegisterService(&PlayerService_ServiceDesc, srv)
 }
 
-func _PlayerService_NewPlayer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(NewPlayerRequest)
+func _PlayerService_CreatePlayer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreatePlayerRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(PlayerServiceServer).NewPlayer(ctx, in)
+		return srv.(PlayerServiceServer).CreatePlayer(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/nicklaw5.cauldron.v1alpha.PlayerService/NewPlayer",
+		FullMethod: "/nicklaw5.cauldron.v1alpha.PlayerService/CreatePlayer",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PlayerServiceServer).NewPlayer(ctx, req.(*NewPlayerRequest))
+		return srv.(PlayerServiceServer).CreatePlayer(ctx, req.(*CreatePlayerRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -92,8 +92,8 @@ var PlayerService_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*PlayerServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "NewPlayer",
-			Handler:    _PlayerService_NewPlayer_Handler,
+			MethodName: "CreatePlayer",
+			Handler:    _PlayerService_CreatePlayer_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

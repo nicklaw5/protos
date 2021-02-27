@@ -9,36 +9,36 @@ import "common/types/v1alpha/status.proto";
 
 service CharacterService {
   // Character
-  rpc NewCharacter (NewCharacterRequest) returns (NewCharacterResponse) {}
-  rpc GetCharacterById (GetCharacterByIdRequest) returns (GetCharacterByIdResponse) {}
+  rpc CreateCharacter (CreateCharacterRequest) returns (CreateCharacterResponse) {}
+  rpc GetCharacterByID (GetCharacterByIDRequest) returns (GetCharacterByIDResponse) {}
 
   // Character Race
-  rpc NewCharacterRace (NewCharacterRaceRequest) returns (NewCharacterRaceResponse) {}
+  rpc CreateCharacterRace (CreateCharacterRaceRequest) returns (CreateCharacterRaceResponse) {}
 
   // Character Class
-  rpc NewCharacterClass (NewCharacterClassRequest) returns (NewCharacterClassResponse) {}
+  rpc CreateCharacterClass (CreateCharacterClassRequest) returns (CreateCharacterClassResponse) {}
 }
 
 //
 // Character
 //
 
-message NewCharacterRequest {
+message CreateCharacterRequest {
   string player_id = 10;
   string race_id = 20;
   string class_id = 30;
 }
-message NewCharacterResponse {
+message CreateCharacterResponse {
   nicklaw5.common.types.v1alpha.Status status = 1;
   int32 error_code = 2;
   string error_message = 3;
   Character character = 10;
 }
 
-message GetCharacterByIdRequest {
+message GetCharacterByIDRequest {
   string character_id = 10;
 }
-message GetCharacterByIdResponse {
+message GetCharacterByIDResponse {
   nicklaw5.common.types.v1alpha.Status status = 1;
   int32 error_code = 2;
   string error_message = 3;
@@ -49,11 +49,11 @@ message GetCharacterByIdResponse {
 // Character Race
 //
 
-message NewCharacterRaceRequest {
+message CreateCharacterRaceRequest {
   string name = 10;
   string description = 20;
 }
-message NewCharacterRaceResponse {
+message CreateCharacterRaceResponse {
   nicklaw5.common.types.v1alpha.Status status = 1;
   int32 error_code = 2;
   string error_message = 3;
@@ -64,11 +64,11 @@ message NewCharacterRaceResponse {
 // Character Class
 //
 
-message NewCharacterClassRequest {
+message CreateCharacterClassRequest {
   string name = 10;
   string description = 20;
 }
-message NewCharacterClassResponse {
+message CreateCharacterClassResponse {
   nicklaw5.common.types.v1alpha.Status status = 1;
   int32 error_code = 2;
   string error_message = 3;

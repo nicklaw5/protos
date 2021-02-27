@@ -10,10 +10,10 @@ import "google/protobuf/struct.proto";
 import "google/protobuf/timestamp.proto";
 
 service PlayerService {
-  rpc NewPlayer (NewPlayerRequest) returns (NewPlayerResponse) {}
+  rpc CreatePlayer (CreatePlayerRequest) returns (CreatePlayerResponse) {}
 }
 
-message NewPlayerRequest {
+message CreatePlayerRequest {
   string email = 10;
   string usernname = 20;
   string display_name = 30;
@@ -24,7 +24,7 @@ message NewPlayerRequest {
   google.protobuf.Timestamp created_at = 80;
   google.protobuf.Timestamp updated_at = 90;
 }
-message NewPlayerResponse {
+message CreatePlayerResponse {
   nicklaw5.common.types.v1alpha.Status status = 1;
   int32 error_code = 2;
   string error_message = 3;

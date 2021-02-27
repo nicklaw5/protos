@@ -19,6 +19,7 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type PlayerServiceClient interface {
 	CreatePlayer(ctx context.Context, in *CreatePlayerRequest, opts ...grpc.CallOption) (*CreatePlayerResponse, error)
+	GetPlayerByID(ctx context.Context, in *GetPlayerByIDRequest, opts ...grpc.CallOption) (*GetPlayerByIDResponse, error)
 }
 
 type playerServiceClient struct {
@@ -38,11 +39,21 @@ func (c *playerServiceClient) CreatePlayer(ctx context.Context, in *CreatePlayer
 	return out, nil
 }
 
+func (c *playerServiceClient) GetPlayerByID(ctx context.Context, in *GetPlayerByIDRequest, opts ...grpc.CallOption) (*GetPlayerByIDResponse, error) {
+	out := new(GetPlayerByIDResponse)
+	err := c.cc.Invoke(ctx, "/nicklaw5.cauldron.v1alpha.PlayerService/GetPlayerByID", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // PlayerServiceServer is the server API for PlayerService service.
 // All implementations must embed UnimplementedPlayerServiceServer
 // for forward compatibility
 type PlayerServiceServer interface {
 	CreatePlayer(context.Context, *CreatePlayerRequest) (*CreatePlayerResponse, error)
+	GetPlayerByID(context.Context, *GetPlayerByIDRequest) (*GetPlayerByIDResponse, error)
 	mustEmbedUnimplementedPlayerServiceServer()
 }
 
@@ -52,6 +63,9 @@ type UnimplementedPlayerServiceServer struct {
 
 func (UnimplementedPlayerServiceServer) CreatePlayer(context.Context, *CreatePlayerRequest) (*CreatePlayerResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreatePlayer not implemented")
+}
+func (UnimplementedPlayerServiceServer) GetPlayerByID(context.Context, *GetPlayerByIDRequest) (*GetPlayerByIDResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetPlayerByID not implemented")
 }
 func (UnimplementedPlayerServiceServer) mustEmbedUnimplementedPlayerServiceServer() {}
 
@@ -84,6 +98,24 @@ func _PlayerService_CreatePlayer_Handler(srv interface{}, ctx context.Context, d
 	return interceptor(ctx, in, info, handler)
 }
 
+func _PlayerService_GetPlayerByID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetPlayerByIDRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PlayerServiceServer).GetPlayerByID(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/nicklaw5.cauldron.v1alpha.PlayerService/GetPlayerByID",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PlayerServiceServer).GetPlayerByID(ctx, req.(*GetPlayerByIDRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // PlayerService_ServiceDesc is the grpc.ServiceDesc for PlayerService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -94,6 +126,10 @@ var PlayerService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreatePlayer",
 			Handler:    _PlayerService_CreatePlayer_Handler,
+		},
+		{
+			MethodName: "GetPlayerByID",
+			Handler:    _PlayerService_GetPlayerByID_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

@@ -11,6 +11,7 @@ import "google/protobuf/timestamp.proto";
 
 service PlayerService {
   rpc CreatePlayer (CreatePlayerRequest) returns (CreatePlayerResponse) {}
+  rpc GetPlayerByID (GetPlayerByIDRequest) returns (GetPlayerByIDResponse) {}
 }
 
 message CreatePlayerRequest {
@@ -25,6 +26,16 @@ message CreatePlayerRequest {
   google.protobuf.Timestamp updated_at = 90;
 }
 message CreatePlayerResponse {
+  nicklaw5.common.types.v1alpha.Status status = 1;
+  int32 error_code = 2;
+  string error_message = 3;
+  Player player = 10;
+}
+
+message GetPlayerByIDRequest {
+  string id = 10;
+}
+message GetPlayerByIDResponse {
   nicklaw5.common.types.v1alpha.Status status = 1;
   int32 error_code = 2;
   string error_message = 3;

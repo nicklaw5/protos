@@ -6,7 +6,6 @@ option go_package = "github.com/nicklaw5/protos/pb/cauldron/v1alpha;cauldron";
 
 import "cauldron/v1alpha/segment.proto";
 import "common/types/v1alpha/status.proto";
-import "google/protobuf/timestamp.proto";
 
 service SegmentService {
   rpc CreateSegment (CreateSegmentRequest) returns (CreateSegmentResponse) {}
@@ -17,8 +16,6 @@ message CreateSegmentRequest {
   string id = 1;
   string name = 10;
   string description = 20;
-  google.protobuf.Timestamp created_at = 80;
-  google.protobuf.Timestamp updated_at = 90;
 }
 message CreateSegmentResponse {
   nicklaw5.common.types.v1alpha.Status status = 1;

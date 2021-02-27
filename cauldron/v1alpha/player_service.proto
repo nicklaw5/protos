@@ -7,7 +7,6 @@ option go_package = "github.com/nicklaw5/protos/pb/cauldron/v1alpha;cauldron";
 import "cauldron/v1alpha/player.proto";
 import "common/types/v1alpha/status.proto";
 import "google/protobuf/struct.proto";
-import "google/protobuf/timestamp.proto";
 
 service PlayerService {
   rpc CreatePlayer (CreatePlayerRequest) returns (CreatePlayerResponse) {}
@@ -16,14 +15,13 @@ service PlayerService {
 
 message CreatePlayerRequest {
   string email = 10;
-  string usernname = 20;
+  string username = 20;
   string display_name = 30;
   string password_plaintext = 40;
   string first_name = 50;
   string last_name = 60;
-  map<string, google.protobuf.Struct> data = 70;
-  google.protobuf.Timestamp created_at = 80;
-  google.protobuf.Timestamp updated_at = 90;
+  repeated string segment_ids = 80;
+  map<string, google.protobuf.Struct> data = 90;
 }
 message CreatePlayerResponse {
   nicklaw5.common.types.v1alpha.Status status = 1;

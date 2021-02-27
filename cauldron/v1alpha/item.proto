@@ -22,6 +22,8 @@ message CompositeItem {
   string id = 1;
   string name = 10;
   repeated Item items = 20;
+  google.protobuf.Timestamp created_at = 50;
+  google.protobuf.Timestamp updated_at = 60;
 }
 
 enum ItemState {

@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package nicklaw5.cauldron.v1alpha;
+
+option go_package = "github.com/nicklaw5/protos/pb/cauldron/v1alpha;cauldron";
+
+import "google/protobuf/timestamp.proto";
+
+message Segment {
+  string id = 1;
+  string name = 10;
+  string description = 20;
+  google.protobuf.Timestamp created_at = 30;
+  google.protobuf.Timestamp updated_at = 40;
+}

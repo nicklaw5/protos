@@ -20,14 +20,15 @@ message Player {
   string password_hashed = 40;
   string first_name = 50;
   string last_name = 60;
+  repeated string segment_ids = 70;
   // The number of characters a single player can own.
   // A negative value represents unlimited characters.
   //
   // Options:
   //  - default_character_limit: The default limit of characters a player can own.
-  int32 character_limit = 70 [
+  int32 character_limit = 80 [
     (default_character_limit) = -1
   ];
-  google.protobuf.Timestamp created_at = 80;
-  google.protobuf.Struct custom_data = 90;
+  google.protobuf.Timestamp created_at = 90;
+  google.protobuf.Struct custom_data = 100;
 }

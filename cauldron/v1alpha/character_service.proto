@@ -14,9 +14,11 @@ service CharacterService {
 
   // Character Race
   rpc CreateCharacterRace (CreateCharacterRaceRequest) returns (CreateCharacterRaceResponse) {}
+  rpc GetCharacterRaceByID (GetCharacterRaceByIDRequest) returns (GetCharacterRaceByIDResponse) {}
 
   // Character Class
   rpc CreateCharacterClass (CreateCharacterClassRequest) returns (CreateCharacterClassResponse) {}
+  rpc GetCharacterClassByID (GetCharacterClassByIDRequest) returns (GetCharacterClassByIDResponse) {}
 }
 
 //
@@ -36,7 +38,7 @@ message CreateCharacterResponse {
 }
 
 message GetCharacterByIDRequest {
-  string character_id = 10;
+  string id = 10;
 }
 message GetCharacterByIDResponse {
   nicklaw5.common.types.v1alpha.Status status = 1;
@@ -60,6 +62,16 @@ message CreateCharacterRaceResponse {
   CharacterRace race = 10;
 }
 
+message GetCharacterRaceByIDRequest {
+  string id = 10;
+}
+message GetCharacterRaceByIDResponse {
+  nicklaw5.common.types.v1alpha.Status status = 1;
+  int32 error_code = 2;
+  string error_message = 3;
+  CharacterRace race = 10;
+}
+
 //
 // Character Class
 //
@@ -73,4 +85,14 @@ message CreateCharacterClassResponse {
   int32 error_code = 2;
   string error_message = 3;
   CharacterClass class = 10;
+}
+
+message GetCharacterClassByIDRequest {
+  string id = 10;
+}
+message GetCharacterClassByIDResponse {
+  nicklaw5.common.types.v1alpha.Status status = 1;
+  int32 error_code = 2;
+  string error_message = 3;
+  CharacterRace class = 10;
 }

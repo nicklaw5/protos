@@ -11,6 +11,8 @@ import "google/protobuf/struct.proto";
 service PlayerService {
   rpc CreatePlayer (CreatePlayerRequest) returns (CreatePlayerResponse) {}
   rpc GetPlayerByID (GetPlayerByIDRequest) returns (GetPlayerByIDResponse) {}
+  // rpc AddPlayerToSegment (AddPlayerToSegmentRequest) returns (AddPlayerToSegmentResponse) {}
+  // rpc RemovePlayerFromSegment (RemovePlayerFromSegmentRequest) returns (RemovePlayerFromSegmentResponse) {}
 }
 
 message CreatePlayerRequest {

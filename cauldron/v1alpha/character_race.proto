@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+package nicklaw5.cauldron.v1alpha;
+
+option go_package = "github.com/nicklaw5/protos/pb/cauldron/v1alpha;cauldron";
+
+import "common/types/v1alpha/status.proto";
+import "google/protobuf/timestamp.proto";
+
+message CharacterRace {
+  // The unique character class id.
+  string id = 1;
+  // The class name (eg. Human, Dwarf, Orc, etc).
+  string name = 10;
+  // The class description.
+  string description = 20;
+  google.protobuf.Timestamp created_at = 30;
+  google.protobuf.Timestamp updated_at = 40;
+}
+
+service CharacterRaceService {
+  rpc CreateCharacterRace (CreateCharacterRaceRequest) returns (CreateCharacterRaceResponse) {}
+  rpc GetCharacterRaceByID (GetCharacterRaceByIDRequest) returns (GetCharacterRaceByIDResponse) {}
+}
+
+message CreateCharacterRaceRequest {
+  string id = 1;
+  string name = 10;
+  string description = 20;
+}
+message CreateCharacterRaceResponse {
+  nicklaw5.common.types.v1alpha.Status status = 1;
+  int32 error_code = 2;
+  string error_message = 3;
+  CharacterRace race = 10;
+}
+
+message GetCharacterRaceByIDRequest {
+  string id = 10;
+}
+message GetCharacterRaceByIDResponse {
+  nicklaw5.common.types.v1alpha.Status status = 1;
+  int32 error_code = 2;
+  string error_message = 3;
+  CharacterRace race = 10;
+}

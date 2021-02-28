@@ -4,6 +4,9 @@ package nicklaw5.cauldron.v1alpha;
 
 option go_package = "github.com/nicklaw5/protos/pb/cauldron/v1alpha;cauldron";
 
+import "cauldron/v1alpha/character_class.proto";
+import "cauldron/v1alpha/character_race.proto";
+import "common/types/v1alpha/status.proto";
 import "google/protobuf/descriptor.proto";
 import "google/protobuf/timestamp.proto";
 
@@ -39,24 +42,30 @@ message Character {
   google.protobuf.Timestamp updated_at = 70;
 }
 
-message CharacterRace {
-  // The unique character class id.
-  string id = 1;
-  // The class name (eg. Human, Dwarf, Orc, etc).
-  string name = 10;
-  // The class description.
-  string description = 20;
-  google.protobuf.Timestamp created_at = 30;
-  google.protobuf.Timestamp updated_at = 40;
+service CharacterService {
+  rpc CreateCharacter (CreateCharacterRequest) returns (CreateCharacterResponse) {}
+  rpc GetCharacterByID (GetCharacterByIDRequest) returns (GetCharacterByIDResponse) {}
 }
 
-message CharacterClass {
-  // The unique character class id.
-  string id = 1;
-  // The class name (eg. Warrior, Mage, Rogue, etc).
+message CreateCharacterRequest {
   string name = 10;
-  // The class description.
-  string description = 20;
-  google.protobuf.Timestamp created_at = 30;
-  google.protobuf.Timestamp updated_at = 40;
+  string player_id = 20;
+  string race_id = 30;
+  string class_id = 40;
+}
+message CreateCharacterResponse {
+  nicklaw5.common.types.v1alpha.Status status = 1;
+  int32 error_code = 2;
+  string error_message = 3;
+  Character character = 10;
+}
+
+message GetCharacterByIDRequest {
+  string id = 10;
+}
+message GetCharacterByIDResponse {
+  nicklaw5.common.types.v1alpha.Status status = 1;
+  int32 error_code = 2;
+  string error_message = 3;
+  Character character = 10;
 }

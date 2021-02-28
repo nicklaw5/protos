@@ -4,6 +4,7 @@ package nicklaw5.cauldron.v1alpha;
 
 option go_package = "github.com/nicklaw5/protos/pb/cauldron/v1alpha;cauldron";
 
+import "common/types/v1alpha/status.proto";
 import "google/protobuf/struct.proto";
 import "google/protobuf/timestamp.proto";
 
@@ -30,4 +31,71 @@ enum ItemState {
   UNDAMAGED = 0;
   DAMAGED = 1;
   BROKEN = 2;
+}
+
+service ItemService {
+  rpc CreateItem (CreateItemRequest) returns (CreateItemResponse) {}
+  rpc CreateItemInstance (CreateItemInstanceRequest) returns (CreateItemInstanceResponse) {}
+  rpc GetItemByID (GetItemByIDRequest) returns (GetItemByIDResponse) {}
+  rpc GetItemsByName (GetItemsByNameRequest) returns (GetItemsByNameResponse) {}
+  rpc GetCharacterItems (GetCharacterItemsRequest) returns (GetCharacterItemsResponse) {}
+}
+
+message CreateItemRequest {
+  string name = 10;
+  string description = 20;
+  ItemState state  = 30;
+  map<string, google.protobuf.Struct> data = 40;
+}
+message CreateItemResponse {
+  nicklaw5.common.types.v1alpha.Status status = 1;
+  int32 error_code = 2;
+  string error_message = 3;
+  Item item = 10;
+}
+
+message CreateItemInstanceRequest {
+  // The id of the item to use as a template
+  // in which to create a ne witem instance.
+  string item_id = 10;
+}
+message CreateItemInstanceResponse {
+  nicklaw5.common.types.v1alpha.Status status = 1;
+  int32 error_code = 2;
+  string error_message = 3;
+  Item item = 10;
+}
+
+message GetItemByIDRequest {
+  string id = 10;
+}
+message GetItemByIDResponse {
+  nicklaw5.common.types.v1alpha.Status status = 1;
+  int32 error_code = 2;
+  string error_message = 3;
+  Item item = 10;
+}
+
+message GetItemsByNameRequest {
+  string name = 10;
+  int32 limit = 20;
+  int32 page = 30;
+}
+message GetItemsByNameResponse {
+  nicklaw5.common.types.v1alpha.Status status = 1;
+  int32 error_code = 2;
+  string error_message = 3;
+  repeated Item items = 10;
+}
+
+message GetCharacterItemsRequest {
+  string character_id = 10;
+  int32 limit = 20;
+  int32 page = 30;
+}
+message GetCharacterItemsResponse {
+  nicklaw5.common.types.v1alpha.Status status = 1;
+  int32 error_code = 2;
+  string error_message = 3;
+  repeated Item items = 10;
 }

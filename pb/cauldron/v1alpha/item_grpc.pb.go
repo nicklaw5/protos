@@ -241,5 +241,5 @@ var ItemService_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "cauldron/v1alpha/item_service.proto",
+	Metadata: "cauldron/v1alpha/item.proto",
 }

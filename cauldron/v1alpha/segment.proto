@@ -4,6 +4,7 @@ package nicklaw5.cauldron.v1alpha;
 
 option go_package = "github.com/nicklaw5/protos/pb/cauldron/v1alpha;cauldron";
 
+import "common/types/v1alpha/status.proto";
 import "google/protobuf/timestamp.proto";
 
 message Segment {
@@ -12,4 +13,31 @@ message Segment {
   string description = 20;
   google.protobuf.Timestamp created_at = 30;
   google.protobuf.Timestamp updated_at = 40;
+}
+
+service SegmentService {
+  rpc CreateSegment (CreateSegmentRequest) returns (CreateSegmentResponse) {}
+  rpc GetSegmentByID (GetSegmentByIDRequest) returns (GetSegmentByIDResponse) {}
+}
+
+message CreateSegmentRequest {
+  string id = 1;
+  string name = 10;
+  string description = 20;
+}
+message CreateSegmentResponse {
+  nicklaw5.common.types.v1alpha.Status status = 1;
+  int32 error_code = 2;
+  string error_message = 3;
+  Segment segment = 10;
+}
+
+message GetSegmentByIDRequest {
+  string id = 10;
+}
+message GetSegmentByIDResponse {
+  nicklaw5.common.types.v1alpha.Status status = 1;
+  int32 error_code = 2;
+  string error_message = 3;
+  Segment segment = 10;
 }

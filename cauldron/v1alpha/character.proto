@@ -4,39 +4,37 @@ package nicklaw5.cauldron.v1alpha;
 
 option go_package = "github.com/nicklaw5/protos/pb/cauldron/v1alpha;cauldron";
 
-import "cauldron/v1alpha/character_class.proto";
-import "cauldron/v1alpha/character_race.proto";
 import "common/types/v1alpha/status.proto";
 import "google/protobuf/descriptor.proto";
 import "google/protobuf/timestamp.proto";
 
 message Character {
   extend google.protobuf.FieldOptions {
-    optional int32 initial_charcter_level = 5000;
+    optional int32 initial_character_level = 5000;
   }
   extend google.protobuf.FieldOptions {
-    optional int32 maximum_charcter_level = 5010;
+    optional int32 maximum_character_level = 5010;
   }
 
   // The unique character id.
   string id = 1;
-  // The charcter's name
+  // The character's name
   string name = 2;
   // The player that owns the character.
   string player_id = 10;
   // The character's class id.
-  CharacterRace race_id = 20;
+  string race_id = 20;
   // The character's class id.
-  CharacterClass class_id = 30;
+  string class_id = 30;
   // The character's current experience points.
   int32 xp = 40;
   // The character's level.
   // Options:
-  //  - initial_charcter_level: This is the character's level assigned on creation.
-  //  - maximum_charcter_level: This is the character's maximum allowed level.
+  //  - initial_character_level: This is the character's level assigned on creation.
+  //  - maximum_character_level: This is the character's maximum allowed level.
   int32 level = 50 [
-    (initial_charcter_level) = 0,
-    (maximum_charcter_level) = 100
+    (initial_character_level) = 0,
+    (maximum_character_level) = 100
   ];
   google.protobuf.Timestamp created_at = 60;
   google.protobuf.Timestamp updated_at = 70;

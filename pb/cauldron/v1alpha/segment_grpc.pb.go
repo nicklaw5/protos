@@ -133,5 +133,5 @@ var SegmentService_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "cauldron/v1alpha/segment_service.proto",
+	Metadata: "cauldron/v1alpha/segment.proto",
 }

@@ -133,5 +133,5 @@ var PlayerService_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "cauldron/v1alpha/player_service.proto",
+	Metadata: "cauldron/v1alpha/player.proto",
 }

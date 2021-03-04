@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package nicklaw5.core.v1alpha;
 
-option go_package = "github.com/nicklaw5/protos/pb/core/v1alpha;core";
+option go_package = "github.com/nicklaw5/protos/pb/core/data/v1alpha;data";
 
 import "google/protobuf/struct.proto";
 

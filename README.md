@@ -7,7 +7,8 @@ The protobufs for the cauldron project
 protoc \
     --go_out=pb --go_opt=paths=source_relative \
     --go-grpc_out=pb --go-grpc_opt=paths=source_relative \
-    core/v1alpha/*.proto
+    core/data/v1alpha/*.proto \
+    core/errors/v1alpha/*.proto
 
 # types
 protoc \

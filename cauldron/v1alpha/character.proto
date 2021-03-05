@@ -26,6 +26,8 @@ message Character {
   string race_id = 20;
   // The character's class id.
   string class_id = 30;
+  // The segment ids the character has been assigned.
+  repeated string segment_ids = 32;
   // The character's current experience points.
   int32 xp = 40;
   // The character's level.
@@ -43,6 +45,8 @@ message Character {
 service CharacterService {
   rpc CreateCharacter (CreateCharacterRequest) returns (CreateCharacterResponse) {}
   rpc GetCharacterByID (GetCharacterByIDRequest) returns (GetCharacterByIDResponse) {}
+  // rpc AddCharacterToSegment (AddCharacterToSegmentRequest) returns (AddCharacterToSegmentResponse) {}
+  // rpc RemoveCharacterFromSegment (RemoveCharacterFromSegmentRequest) returns (RemoveCharacterFromSegmentResponse) {}
 }
 
 message CreateCharacterRequest {

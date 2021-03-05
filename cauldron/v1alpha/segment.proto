@@ -19,7 +19,6 @@ message Segment {
 enum SegmentType {
   PLAYER = 0;
   CHARACTER = 1;
-  SUGAR = 2;
 }
 
 service SegmentService {

@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package nicklaw5.core.v1alpha;
+package nicklaw5.core.data.v1alpha;
 
 option go_package = "github.com/nicklaw5/protos/pb/core/data/v1alpha;data";
 

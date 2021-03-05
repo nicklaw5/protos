@@ -1,12 +1,12 @@
 syntax = "proto3";
 
-package nicklaw5.common.types.v1alpha;
+package nicklaw5.core.errors.v1alpha;
 
 option go_package = "github.com/nicklaw5/protos/pb/core/errors/v1alpha;errors";
 
 message ServerInterceptorError {
-  // The full path of the gRPC method called.
-  string method = 1;
+  // The full path of the gRPC service method called.
+  string service_method = 1;
   // The full path to the interceptor function.
   string interceptor = 2;
 }

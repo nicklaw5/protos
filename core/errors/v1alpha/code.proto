@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package nicklaw5.core.errors.v1alpha;
+
+option go_package = "github.com/nicklaw5/protos/pb/core/errors/v1alpha;errors";
+
+message InternalError {
+  // The full path of the gRPC service method called.
+  string service_method = 1;
+}

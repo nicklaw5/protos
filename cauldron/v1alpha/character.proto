@@ -7,6 +7,7 @@ option go_package = "github.com/nicklaw5/protos/pb/cauldron/v1alpha;cauldron";
 import "common/types/v1alpha/status.proto";
 import "google/protobuf/descriptor.proto";
 import "google/protobuf/timestamp.proto";
+import "google/protobuf/wrappers.proto";
 
 extend google.protobuf.MessageOptions {
   repeated string character_required_fields = 5000;
@@ -34,7 +35,7 @@ message Character {
   // The character's class id.
   string race_id = 20;
   // The character's class id.
-  string class_id = 30;
+  google.protobuf.StringValue class_id = 30;
   // The segment ids the character has been assigned.
   repeated string segment_ids = 32;
   // The character's current experience points.
@@ -54,15 +55,19 @@ message Character {
 service CharacterService {
   rpc CreateCharacter (CreateCharacterRequest) returns (CreateCharacterResponse) {}
   rpc GetCharacterByID (GetCharacterByIDRequest) returns (GetCharacterByIDResponse) {}
+
   // rpc AddCharacterToSegment (AddCharacterToSegmentRequest) returns (AddCharacterToSegmentResponse) {}
   // rpc RemoveCharacterFromSegment (RemoveCharacterFromSegmentRequest) returns (RemoveCharacterFromSegmentResponse) {}
+
+  // rpc IncrementCharacterLevel (IncrementCharacterLevelRequest) returns (IncrementCharacterLevelResponse) {}
+  // rpc IncrementCharacterXP (IncrementCharacterXPRequest) returns (IncrementCharacterXPResponse) {}
 }
 
 message CreateCharacterRequest {
   string name = 10;
   string player_id = 20;
   string race_id = 30;
-  string class_id = 40;
+  google.protobuf.StringValue class_id = 40;
   repeated string segment_ids = 50;
 }
 message CreateCharacterResponse {
@@ -71,7 +76,7 @@ message CreateCharacterResponse {
 }
 
 message GetCharacterByIDRequest {
-  string id = 10;
+  google.protobuf.StringValue id = 10;
 }
 message GetCharacterByIDResponse {
   nicklaw5.common.types.v1alpha.Status status = 1;

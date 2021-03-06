@@ -34,8 +34,6 @@ message CreateSegmentRequest {
 }
 message CreateSegmentResponse {
   nicklaw5.common.types.v1alpha.Status status = 1;
-  int32 error_code = 2;
-  string error_message = 3;
   Segment segment = 10;
 }
 
@@ -44,7 +42,5 @@ message GetSegmentByIDRequest {
 }
 message GetSegmentByIDResponse {
   nicklaw5.common.types.v1alpha.Status status = 1;
-  int32 error_code = 2;
-  string error_message = 3;
   Segment segment = 10;
 }

@@ -63,11 +63,10 @@ message CreateCharacterRequest {
   string player_id = 20;
   string race_id = 30;
   string class_id = 40;
+  repeated string segment_ids = 50;
 }
 message CreateCharacterResponse {
   nicklaw5.common.types.v1alpha.Status status = 1;
-  int32 error_code = 2;
-  string error_message = 3;
   Character character = 10;
 }
 
@@ -76,7 +75,5 @@ message GetCharacterByIDRequest {
 }
 message GetCharacterByIDResponse {
   nicklaw5.common.types.v1alpha.Status status = 1;
-  int32 error_code = 2;
-  string error_message = 3;
   Character character = 10;
 }

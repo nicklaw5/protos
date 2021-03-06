@@ -30,8 +30,6 @@ message CreateCharacterRaceRequest {
 }
 message CreateCharacterRaceResponse {
   nicklaw5.common.types.v1alpha.Status status = 1;
-  int32 error_code = 2;
-  string error_message = 3;
   CharacterRace race = 10;
 }
 
@@ -40,7 +38,5 @@ message GetCharacterRaceByIDRequest {
 }
 message GetCharacterRaceByIDResponse {
   nicklaw5.common.types.v1alpha.Status status = 1;
-  int32 error_code = 2;
-  string error_message = 3;
   CharacterRace race = 10;
 }

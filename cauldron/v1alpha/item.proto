@@ -49,8 +49,6 @@ message CreateItemRequest {
 }
 message CreateItemResponse {
   nicklaw5.common.types.v1alpha.Status status = 1;
-  int32 error_code = 2;
-  string error_message = 3;
   Item item = 10;
 }
 
@@ -61,8 +59,6 @@ message CreateItemInstanceRequest {
 }
 message CreateItemInstanceResponse {
   nicklaw5.common.types.v1alpha.Status status = 1;
-  int32 error_code = 2;
-  string error_message = 3;
   Item item = 10;
 }
 
@@ -71,8 +67,6 @@ message GetItemByIDRequest {
 }
 message GetItemByIDResponse {
   nicklaw5.common.types.v1alpha.Status status = 1;
-  int32 error_code = 2;
-  string error_message = 3;
   Item item = 10;
 }
 
@@ -83,8 +77,6 @@ message GetItemsByNameRequest {
 }
 message GetItemsByNameResponse {
   nicklaw5.common.types.v1alpha.Status status = 1;
-  int32 error_code = 2;
-  string error_message = 3;
   repeated Item items = 10;
 }
 
@@ -95,7 +87,5 @@ message GetCharacterItemsRequest {
 }
 message GetCharacterItemsResponse {
   nicklaw5.common.types.v1alpha.Status status = 1;
-  int32 error_code = 2;
-  string error_message = 3;
   repeated Item items = 10;
 }

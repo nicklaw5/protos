@@ -8,13 +8,22 @@ import "common/types/v1alpha/status.proto";
 import "google/protobuf/descriptor.proto";
 import "google/protobuf/timestamp.proto";
 
+extend google.protobuf.MessageOptions {
+  repeated string character_required_fields = 5000;
+}
+
 message Character {
+
   extend google.protobuf.FieldOptions {
-    optional int32 initial_character_level = 5000;
+    optional int32 initial_character_level = 5010;
   }
   extend google.protobuf.FieldOptions {
-    optional int32 maximum_character_level = 5010;
+    optional int32 maximum_character_level = 5011;
   }
+
+  option (character_required_fields) = "player_id";
+  option (character_required_fields) = "race_id";
+  option (character_required_fields) = "class_id";
 
   // The unique character id.
   string id = 1;

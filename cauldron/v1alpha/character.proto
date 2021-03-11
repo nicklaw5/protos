@@ -14,12 +14,11 @@ extend google.protobuf.MessageOptions {
 }
 
 message Character {
-
   extend google.protobuf.FieldOptions {
-    optional int32 initial_character_level = 5010;
+    optional uint32 initial_character_level = 5010;
   }
   extend google.protobuf.FieldOptions {
-    optional int32 maximum_character_level = 5011;
+    optional uint32 maximum_character_level = 5011;
   }
 
   option (character_required_fields) = "player_id";
@@ -27,24 +26,24 @@ message Character {
   option (character_required_fields) = "class_id";
 
   // The unique character id.
-  string id = 1;
+  google.protobuf.StringValue id = 1;
   // The character's name
-  string name = 2;
+  google.protobuf.StringValue name = 2;
   // The player that owns the character.
-  string player_id = 10;
+  google.protobuf.StringValue player_id = 10;
   // The character's class id.
-  string race_id = 20;
+  google.protobuf.StringValue race_id = 20;
   // The character's class id.
   google.protobuf.StringValue class_id = 30;
   // The segment ids the character has been assigned.
   repeated string segment_ids = 32;
   // The character's current experience points.
-  int32 xp = 40;
+  google.protobuf.UInt32Value xp = 40;
   // The character's level.
   // Options:
-  //  - initial_character_level: This is the character's level assigned on creation.
-  //  - maximum_character_level: This is the character's maximum allowed level.
-  int32 level = 50 [
+  //  - initial_character_level: The character's level assigned on creation.
+  //  - maximum_character_level: The character's maximum allowed level.
+  google.protobuf.UInt32Value level = 50 [
     (initial_character_level) = 0,
     (maximum_character_level) = 100
   ];
@@ -64,9 +63,9 @@ service CharacterService {
 }
 
 message CreateCharacterRequest {
-  string name = 10;
-  string player_id = 20;
-  string race_id = 30;
+  google.protobuf.StringValue name = 10;
+  google.protobuf.StringValue player_id = 20;
+  google.protobuf.StringValue race_id = 30;
   google.protobuf.StringValue class_id = 40;
   repeated string segment_ids = 50;
 }
